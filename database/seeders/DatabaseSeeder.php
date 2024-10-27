@@ -22,3 +22,20 @@ class DatabaseSeeder extends Seeder
 Mascota::factory(1000)->create();    
     }
 }
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+      $this->call([
+        CategoriaSeeder::class
+
+      ]);
+Mascota::factory(1000)->create();    
+    }
+}
+
+

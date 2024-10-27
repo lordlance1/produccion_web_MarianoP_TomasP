@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Mascota;
+use App\Models\Gamebuster;
 class Categoria extends Model
 {
     use HasFactory;
 protected $fillable=['nombre','descripcion'];
-public function mascotas (){
+public function gamebuster (){
     return $this->hasMany(Mascota::class);
 }
 

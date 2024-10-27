@@ -12,10 +12,10 @@ class MascotaController extends Controller
      */
     public function index()
     {
-        $mascotas= Mascota::select('id','nombre','fecha_nacimiento','categoria_id')
+        $gamebuster= Mascota::select('id','nombre','fecha_nacimiento','categoria_id')
         ->orderBy('id','desc')
         ->paginate(10);
-return view ('mascotas.index', compact('mascotas')
+return view ('gamebuster.index', compact('gamebuster')
 );
     }
 
@@ -25,7 +25,7 @@ return view ('mascotas.index', compact('mascotas')
     public function create()
     {
         $categorias= Categoria::select('id','nombre')->orderBy('nombre')->get();
-        return view ('mascotas.create',compact('categorias'));
+        return view ('gamebuster.create',compact('categorias'));
     }
 
     /**
@@ -53,7 +53,7 @@ return view ('mascotas.index', compact('mascotas')
         'categoria_id'=>$request->categoria_id,
         'descripcion'=>$request->descripcion,
        ]);
-return redirect()->route('mascotas.index')
+return redirect()->route('gamebuster.index')
 ->with('status','La mascota se agrego correctamente');
     }
 

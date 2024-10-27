@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TareaController;
-use App\http\Controllers\MascotaController;
+use App\Http\Controllers\MascotaController;
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,8 +20,7 @@ Route::post('tareas',[
 TareaController::class,
 'store'
 ])->name('tareas.store');
-//rutas para controlador de recursos de las mascotas
-Route::resource('/mascotas',MascotaController::class);
+Route::resource('/gamebuster',MascotaController::class);
 
 
 
