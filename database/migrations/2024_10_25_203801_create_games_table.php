@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('gamebuster', function (Blueprint $table) {
+        Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',50);
             $table->text('descripcion');
-            $table->date('fecha_nacimiento');
+            $table->date('fecha_lanzamiento');
             $table->foreignId('categoria_id')->constrained();
             $table->boolean('is_visible')->default(true);
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('gamebuster');
+        Schema::dropIfExists('games');
     }
 };

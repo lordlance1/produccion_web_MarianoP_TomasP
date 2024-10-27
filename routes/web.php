@@ -3,9 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TareaController;
-use App\Http\Controllers\MascotaController;
+use App\Http\Controllers\GameController;
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 Route::get('/test/{nombre}', function($nombre){
 return "Hola,{$nombre} ";
@@ -20,13 +20,16 @@ Route::post('tareas',[
 TareaController::class,
 'store'
 ])->name('tareas.store');
-Route::resource('/gamebuster',MascotaController::class);
-
-
-
+Route::middleware('auth')->group(function () {
+    Route::resource('gamebuster', GameController::class);
+});
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('gamebuster.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
+//Route::resource('games', GameController::class);
+
+//Esto dejalo comentado por cualquier inconveniente tomi
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

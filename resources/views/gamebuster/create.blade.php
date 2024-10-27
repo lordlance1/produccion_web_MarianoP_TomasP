@@ -1,4 +1,4 @@
-<x-base title="Mascota Nueva">
+<x-base title="Game Nuevo">
     <x-h1>Mascota Nueva</x-h1>
     @if ($errors->any())
         <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:red-green-800"
@@ -14,15 +14,15 @@
         @csrf
         <div class="mb-6">
             <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese el nombre
-                de la Mascota</label>
+                del juego</label>
             <input type="text" name="nombre" id="nombre"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"placeholder="Nombre de la Mascota" value="{{old('nombre')}}">
         </div>
 
         <div class="mb-6">
-            <label for="fecha_nacimiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese
-                la fecha de nacimiento de la mascota</label>
-            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
+            <label for="fecha_lanzamiento" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ingrese
+                la fecha de lanzamiento del juego</label>
+            <input type="date" name="fecha_lanzamiento" id="fecha_lanzamiento"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"placeholder="Fecha de nacimiento" value="{{old('fecha_nacimiento')}}">
         </div>
 
@@ -40,8 +40,7 @@
         </div>
 
         <div class="mb-6">
-            <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción de
-                la mascota</label>
+            <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descripción de el juego</label>
             <textarea name="descripcion" id="descripcion"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"placeholder="Descripcion de la Mascota" value="{{old('descripcion')}}"></textarea>
         </div>
