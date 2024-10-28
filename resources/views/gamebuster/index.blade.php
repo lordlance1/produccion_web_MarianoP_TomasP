@@ -27,7 +27,10 @@
                         {{ $game->categoria->nombre }}
                     </td>
                     <td class="px-6 py-4">
-                        <x-btn-primary href="">Gestionar</x-btn-primary>
+                        <td class="px-6 py-4">
+                            <x-btn-primary href="{{ route('gamebuster.edit', $game->id) }}">Gestionar</x-btn-primary>
+                        </td>
+                        
                     </td>
                 </tr>
                 @endforeach

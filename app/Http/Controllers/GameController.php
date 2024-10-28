@@ -68,18 +68,38 @@ return redirect()->route('games.index')
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Game $game)
+    public function edit($id)
     {
-        //
+        $game = Game::findOrFail($id);
+        $categorias = Categoria::select('id', 'nombre')->orderBy('nombre')->get();
+        return view('gamebuster.edit', compact('game', 'categorias'));
     }
+    
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Game $game)
+    public function update(Request $request, $id)
     {
-        //
+        $game = Game::findOrFail($id);
+    
+        $request->validate([
+            'nombre' => 'required',
+            'fecha_lanzamiento' => 'required|date|before:tomorrow',
+            'categoria_id' => 'required',
+            'descripcion' => 'required',
+        ]);
+    
+        $game->update([
+            'nombre' => $request->nombre,
+            'fecha_lanzamiento' => $request->fecha_lanzamiento,
+            'categoria_id' => $request->categoria_id,
+            'descripcion' => $request->descripcion,
+        ]);
+    
+        return redirect()->route('gamebuster.index')->with('status', 'Juego actualizado correctamente');
     }
+    
 
     /**
      * Remove the specified resource from storage.
