@@ -9,7 +9,7 @@ use App\Models\Categoria;
 class Game extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'descripcion', 'fecha_lanzamiento', 'categoria_id','is_visible'];
+    protected $fillable = ['nombre', 'descripcion', 'fecha_lanzamiento', 'categoria_id','is_visible', 'imagen'];
     public function categoria(){
         return $this->belongsTo(Categoria::class);
     }

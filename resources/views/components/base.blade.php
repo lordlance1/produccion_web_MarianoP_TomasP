@@ -1,88 +1,54 @@
-@props(['title'])
-
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ $title ?? 'sin título' }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body>
-        <nav class="bg-white border-gray-200 dark:bg-gray-900">
-            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-                    <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-                </a>
-                <button data-collapse-toggle="navbar-default" type="button" 
-                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 
-                    rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 
-                    dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" 
-                    aria-controls="navbar-default" aria-expanded="false">
-                    <span class="sr-only">Open main menu</span>
-                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-                    </svg>
-                </button>
-                <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                    <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg 
-                        bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white 
-                        dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                        
-                        <li>
-                            <a href="{{ route('usuarios.index') }}" class="block py-2 px-3 text-white bg-blue-700 rounded 
-                                md:bg-transparent md:text-blue-700 md:p-0 dark:text-white 
-                                md:dark:text-blue-500" aria-current="page">Usuarios</a>
-                        </li>
-                        
-                        <li>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 
-                                    md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white 
-                                    md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white 
-                                    md:dark:hover:bg-transparent">Logout</button>
-                            </form>
-                        </li>
-
-                        <li>
-                            <a href="{{ route('gamebuster.index') }}" class="block py-2 px-3 text-gray-900 rounded 
-                                hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
-                                dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 
-                                dark:hover:text-white md:dark:hover:bg-transparent">Juegos</a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 
-                                md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
-                                dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 
-                                dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
-                        </li>
-
-                        <li>
-                            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 
-                                md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 
-                                dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 
-                                dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <div class="container mx-auto w-10/12 p-1 bg-gray-300">
-            {{ $slot }}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title ?? 'Gamebuster - Your Game Store' }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #1a1a1a;
+            border-bottom: 2px solid #d32f2f;
+        }
+        .navbar a {
+            color: #e0e0e0;
+        }
+        .navbar a:hover {
+            color: #ff5252;
+        }
+        main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        footer {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar flex justify-between px-8 py-4">
+        <div class="text-xl font-bold"><a href="#">Gamebuster</a></div>
+        <div class="flex space-x-4">
+            <a href="{{ route('gamebuster.index') }}" class="hover:text-red-400">Browse Games</a>
+            <a href="{{ route('gamebuster.create') }}" class="hover:text-red-400">Add New Game</a>
         </div>
+    </nav>
 
-        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-    </body>
+    <main>
+        {{ $slot }}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Gamebuster. All rights reserved.</p>
+    </footer>
+</body>
 </html>

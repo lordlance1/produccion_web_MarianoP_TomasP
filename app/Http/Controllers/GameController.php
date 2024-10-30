@@ -12,7 +12,7 @@ class GameController extends Controller
      */
     public function index()
     {
-        $games= Game::select('id','nombre','fecha_lanzamiento','categoria_id')
+        $games= Game::select('id','nombre','fecha_lanzamiento','categoria_id', 'imagen')
         ->orderBy('id','desc')
         ->paginate(10);
 return view ('gamebuster.index', compact('games')
@@ -37,23 +37,26 @@ return view ('gamebuster.index', compact('games')
 'nombre'=> 'required',
 'fecha_lanzamiento'=>'required|date|before:tomorrow',
 'categoria_id'=>'required',
-'descripcion'=>'required'
+'descripcion'=>'required',
+'imagen' => 'nullable|string',
         ],[
             'nombre.required'=>' debe ingresar un nombre',
             'fecha_lanzamiento.required'=>'debe ingresar una fecha de nacimiento',
             'catregoria_id.required'=>'debe seleccionar una categoria',
             'fecha_lanzamiento.date' => 'La fecha de nacimiento debe ser una fecha válida',
             'fecha_lanzamiento.before' => 'La fecha de nacimiento debe ser antes de mañana',
-            'descripcion.required'=>'debe agregar una descripcion'
+            'descripcion.required'=>'debe agregar una descripcion',
+           
             ]
     );
        Game::create([
         'nombre'=>$request->nombre,
-        'fecha_lanzamiento'=>$request->fecha_nacimiento,
+        'fecha_lanzamiento'=>$request->fecha_lanzamiento,
         'categoria_id'=>$request->categoria_id,
         'descripcion'=>$request->descripcion,
+        'imagen' => $request->input('imagen') ?? 'https://picsum.photos/200/300',
        ]);
-return redirect()->route('games.index')
+return redirect()->route('gamebuster.index')
 ->with('status','El juego se agrego correctamente');
     }
 

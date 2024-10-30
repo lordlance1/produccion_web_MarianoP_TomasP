@@ -7,16 +7,16 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
+      
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Scripts -->
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased h-screen bg-cover bg-center" style="background-image: url('{{ asset('img/GameBusterFondo.png') }}');">
+    <body class="antialiased h-screen bg-cover bg-center" style="background-image: url('{{ asset('img/GameBusterFondo.png') }}');">
         <div class="min-h-screen flex items-center justify-center bg-gray-800 bg-opacity-10">
-          <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-full max-w-xs p-4 bg-red-900 bg-opacity-40 backdrop-blur-sm rounded-lg shadow-lg text-white">
+          <div class="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-full max-w-xs p-4 bg-red-900 bg-opacity-40 backdrop-blur-sm rounded-lg shadow-lg">
                 
                 {{ $slot }}
             </div>
