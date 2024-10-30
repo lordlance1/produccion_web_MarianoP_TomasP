@@ -1,6 +1,5 @@
-@extends('layouts.app', ['title' => 'Usuarios'])
-
-@section('content')
+<x-base title="Usuarios">
+    <x-h1>Lista de  Usuarios</x-h1>
 <div class="container mx-auto">
     <h1 class="text-2xl font-bold mb-6">Lista de Usuarios</h1>
 
@@ -45,4 +44,5 @@
         </tbody>
     </table>
 </div>
-@endsection
+</x-base>
+
