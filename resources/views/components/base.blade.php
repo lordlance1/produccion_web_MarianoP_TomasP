@@ -40,6 +40,15 @@
         <div class="flex space-x-4">
             <a href="{{ route('gamebuster.index') }}" class="hover:text-red-400">Browse Games</a>
             <a href="{{ route('gamebuster.create') }}" class="hover:text-red-400">Add New Game</a>
+            <a href="{{ route('usuarios.index') }}" class="hover:text-red-400">Usuarios</a>
+            
+
+            <form action="{{ route('logout') }}" method="POST" class="inline">
+                @csrf
+                <button type="submit" class="hover:text-red-400">Logout</button>
+            </form>
+
+
         </div>
     </nav>
 
