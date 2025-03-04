@@ -64,6 +64,7 @@
     </style>
 </head>
 <body>
+@if(auth()->check()) {{-- Solo usuarios autenticados --}}
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="#">Gamebuster</a>
@@ -75,9 +76,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('gamebuster.index') }}">Browse Games</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('gamebuster.create') }}">Add New Game</a>
-                    </li>
+                    @if(auth()->user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('gamebuster.create') }}">Add New Game</a>
+                        </li>
+                    @endif
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search for games..." aria-label="Search">
@@ -86,6 +89,8 @@
             </div>
         </div>
     </nav>
+@endif
+
 
     <main class="container">
         @yield('content')

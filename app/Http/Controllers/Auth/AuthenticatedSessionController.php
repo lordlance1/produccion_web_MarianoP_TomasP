@@ -23,13 +23,20 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+{
+    $request->authenticate();
+    $request->session()->regenerate();
 
-        $request->session()->regenerate();
+    // ✅ Obtener el usuario autenticado
+    $user = Auth::user();
 
-        return redirect()->route('gamebuster.index');
+    // ✅ Redirigir según el rol
+    if ($user->role === 'admin' || $user->role === 'editor') {
+        return redirect()->route('gamebuster.index'); // Admins y editores van a la vista de gestión
+    } else {
+        return redirect()->route('user.index'); // Usuarios normales van a la vista de usuario
     }
+}
 
     /**
      * Destroy an authenticated session.

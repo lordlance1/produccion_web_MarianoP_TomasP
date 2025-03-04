@@ -1,58 +1,44 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\TareaController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsuarioController;
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
-Route::get('/test/{nombre}', function($nombre){
-return "Hola,{$nombre} ";
-});
-Route::get('/tareas',
-[TareaController::class,
-'index'])->name('tareas.index');
 
-Route::get('/tareas/create',[TareaController::class,'create'] )->name('tareas.create');
+Route::get('/info', fn() => view('pages.info'))->name('info');
+Route::get('/contacto', fn() => view('pages.contacto'))->name('contacto');
 
-Route::post('tareas',[
-TareaController::class,
-'store'
-])->name('tareas.store');
-//Route::middleware('auth')->group(function () {
-  //  Route::get('/usuarios', [UsuarioController::class, 'index'])->name('usuarios.index');
+Route::middleware(['auth'])->group(function () {
 
-//});
-Route::put('/gamebuster/{game}', [GameController::class, 'update'])->name('gamebuster.update');
+    Route::get('/dashboard', function () {
+        $user = auth()->user();
+        return $user->role === 'admin'
+            ? redirect()->route('gamebuster.index')
+            : redirect()->route('user.index');
+    })->middleware(['verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-Route::resource('usuarios', UsuarioController::class)->except(['show', 'edit', 'update']);
-});
-Route::middleware('auth')->group(function () {
-Route::resource('usuarios', UsuarioController::class)->except(['show']);
-});
-Route::get('/usuarios/gestion', [UsuarioController::class, 'gestion'])->name('usuarios.gestion');
-Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+    Route::get('/games', [GameController::class, 'userIndex'])->name('user.index');
+    Route::get('/games/{id}', [GameController::class, 'userShow'])->name('user.show');
 
-Route::get('/usuarios/gestion', [UsuarioController::class, 'gestion'])->name('usuarios.gestion');
-
-Route::middleware('auth')->group(function () {
-    Route::resource('gamebuster', GameController::class);
-});
-Route::get('/dashboard', function () {
-    return redirect()->route('gamebuster.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
-//Route::resource('games', GameController::class);
-
-//Esto dejalo comentado por cualquier inconveniente tomi
+    Route::middleware(['admin'])->group(function () {
+        Route::resource('gamebuster', GameController::class);
+        Route::resource('usuarios', UsuarioController::class)->except(['show']);
+        Route::get('/usuarios/gestion', [UsuarioController::class, 'gestion'])->name('usuarios.gestion');
+        Route::delete('/usuarios/{id}', [UsuarioController::class, 'destroy'])->name('usuarios.destroy');
+    });
 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/test-role', function () {
+        return response()->json([
+            'user' => auth()->user(),
+            'role' => auth()->user()?->role
+        ]);
+    });
 });
 
 require __DIR__.'/auth.php';

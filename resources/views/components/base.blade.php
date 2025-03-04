@@ -39,16 +39,17 @@
         <div class="text-xl font-bold"><a href="#">Gamebuster</a></div>
         <div class="flex space-x-4">
             <a href="{{ route('gamebuster.index') }}" class="hover:text-red-400">Browse Games</a>
+            @if(auth()->check() && auth()->user()->role === 'admin')
             <a href="{{ route('gamebuster.create') }}" class="hover:text-red-400">Add New Game</a>
-            <a href="{{ route('usuarios.index') }}" class="hover:text-red-400">Usuarios</a>
-            
+            @endif
+            @if(auth()->check() && auth()->user()->role === 'admin')
+                <a href="{{ route('usuarios.index') }}" class="hover:text-red-400">Usuarios</a>
+            @endif
 
             <form action="{{ route('logout') }}" method="POST" class="inline">
                 @csrf
                 <button type="submit" class="hover:text-red-400">Logout</button>
             </form>
-
-
         </div>
     </nav>
 
