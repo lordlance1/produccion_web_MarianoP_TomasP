@@ -44,4 +44,14 @@
         </x-primary-button>
     </div>
     </form>
+    
 </x-guest-layout>
+
+<div class="fixed bottom-4 right-4 flex flex-col space-y-2">
+    <a href="{{ route('contacto') }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+        contactenos 
+    </a>
+    <a href="{{ route('info') }}" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+        acerca de nosotros
+    </a>
+</div>

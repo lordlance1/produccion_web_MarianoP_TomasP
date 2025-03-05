@@ -21,7 +21,7 @@ class GameController extends Controller
 
         $games = Game::select('id', 'nombre', 'fecha_lanzamiento', 'categoria_id', 'imagen')
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate(12);
 
         return view('gamebuster.index', compact('games'));
     }
@@ -29,12 +29,19 @@ class GameController extends Controller
     /**
      * Display a listing of the resource for normal users (solo vista).
      */
-    public function userIndex()
+    public function userIndex(Request $request)
     {
-        // Todos los usuarios pueden ver los juegos sin opciones de gestión
+        // Capturamos el término de búsqueda (si existe)
+        $search = $request->input('search');
+
+        // Consultamos los juegos y filtramos por nombre en caso de que se haya ingresado un valor en "search"
         $games = Game::select('id', 'nombre', 'fecha_lanzamiento', 'categoria_id', 'imagen')
+            ->when($search, function ($query, $search) {
+                $query->where('nombre', 'like', '%' . $search . '%');
+            })
             ->orderBy('id', 'desc')
-            ->paginate(10);
+            ->paginate(12)
+            ->appends(['search' => $search]); // Mantiene el valor de búsqueda en la paginación
 
         return view('user.index', compact('games'));
     }

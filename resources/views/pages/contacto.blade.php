@@ -1,27 +1,57 @@
-@extends('layouts.app')
+@php
+    $hideNavbar = true;
+@endphp
+
+@extends('layouts.base')
 
 @section('title', 'Contacto')
 
 @section('content')
-    <h1 class="text-2xl font-bold mb-4">Contáctanos</h1>
-    <p class="text-gray-700">Si tienes dudas o sugerencias, contáctanos mediante el siguiente formulario o a nuestro correo:</p>
+    <h1 class="display-5 fw-bold mb-4">Contáctanos</h1>
+    <p>Si tienes dudas o sugerencias, contáctanos mediante el siguiente formulario o a nuestro correo:</p>
 
-    <p class="mt-4"><strong>Email:</strong> soporte@miapp.com</p>
-    <p><strong>Teléfono:</strong> +54 11 1234-5678</p>
+    <div class="my-3">
+        <p><strong>Email:</strong> soporte@miapp.com</p>
+        <p><strong>Teléfono:</strong> +54 11 1234-5678</p>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-6">Formulario de Contacto</h2>
+    <h2 class="h4 mt-4">Formulario de Contacto</h2>
 
-    <form action="{{ route('contacto.enviar') }}" method="POST" class="mt-4 bg-white p-4 rounded shadow">
-        @csrf
-        <label class="block">Nombre:</label>
-        <input type="text" name="nombre" class="border p-2 w-full" required>
+    @if(session('status'))
+        <div class="alert alert-success mt-3">
+            {{ session('status') }}
+        </div>
+    @endif
 
-        <label class="block mt-2">Correo Electrónico:</label>
-        <input type="email" name="email" class="border p-2 w-full" required>
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-6 col-lg-5">
+            <form action="{{ route('contacto.enviar') }}" method="POST" class="card bg-dark text-light p-4">
+                @csrf
+                <div class="mb-3">
+                    <label class="form-label">Nombre:</label>
+                    <input type="text" name="nombre" class="form-control" required>
+                </div>
 
-        <label class="block mt-2">Mensaje:</label>
-        <textarea name="mensaje" class="border p-2 w-full" required></textarea>
+                <div class="mb-3">
+                    <label class="form-label">Correo Electrónico:</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
 
-        <button type="submit" class="bg-blue-500 text-white py-2 px-4 mt-4 rounded">Enviar</button>
-    </form>
+                <div class="mb-3">
+                    <label class="form-label">Mensaje:</label>
+                    <textarea name="mensaje" class="form-control" rows="4" required></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Enviar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ route('login') }}" class="btn btn-secondary">
+            Volver
+        </a>
+    </div>
 @endsection
